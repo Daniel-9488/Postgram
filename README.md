@@ -17,14 +17,19 @@ Express, and MySQL.
 | Auth | bcrypt, express-session |
 | File Upload | Multer |
 ## 📸 Screenshots
-login page
-<img width="2940" height="1666" alt="image" src="https://github.com/user-attachments/assets/807f0a43-e483-489e-a364-8378519a6ae5" />
-Admin dashboard
-<img width="1470" height="833" alt="image" src="https://github.com/user-attachments/assets/58455572-1fc2-49f5-82e0-8b5dafa88807" />
-home page
-<img width="1470" height="833" alt="image" src="https://github.com/user-attachments/assets/688ac4bf-bd5f-4b08-9fb2-59fc70e043de" />
-Edit profile page
-<img width="1470" height="832" alt="image" src="https://github.com/user-attachments/assets/d8082a4c-5279-4fb8-9753-5dd633cceb58" />
+Login page:
+<img width="1470" height="833" alt="image" src="https://github.com/user-attachments/assets/c59e0626-c51d-4853-9156-b33e3256dcf2" />
+
+Home page:
+<img width="1470" height="833" alt="image" src="https://github.com/user-attachments/assets/c8b76232-36e2-4135-ae10-e25c2552141c" />
+
+Edit profile page:
+<img width="1469" height="833" alt="image" src="https://github.com/user-attachments/assets/09b9e13f-1279-4fbe-8d71-6cc17a18f1b4" />
+
+Admin Dashboard:
+<img width="1470" height="836" alt="image" src="https://github.com/user-attachments/assets/3311171d-8dad-4733-bf43-ab8293a5a956" />
+
+
 ## ⚙️ How to Run Locally
 1. Clone the repository
 2. Install dependencies: `npm install`
