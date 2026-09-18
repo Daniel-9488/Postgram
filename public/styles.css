@@ -1,0 +1,311 @@
+/* General Body Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    margin: 0;
+    padding: 0;
+    color: #333;
+    min-height: 100vh; /* Use viewport height to ensure full screen coverage */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+.logo-container {
+    width: 100%;
+    text-align: center;
+    margin-top: 30px; /* 上方留空 */
+    margin-bottom: 30px; /* 下方留空 */
+}
+
+#postgram-logo {
+    width: 250px; /* 控制 Logo 大小（可以自己調） */
+    height: auto;
+}
+
+
+
+/* Main Content Container */
+.main-content {
+    width: 100%;
+    max-width: 500px; /* Control the maximum width */
+    padding: 100px;
+    box-sizing: border-box;
+}
+
+#login-container {
+    width: 20%;
+    min-width: 250px; /* Prevent container from becoming too narrow on small screens */
+    padding: 30px;
+    background:  rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    text-align: center;
+    overflow: hidden;
+    margin: 0px 0 100px;
+    /* No need for absolute positioning since we're using flex centering */
+}
+
+#signup-container {
+    width: 20%;
+    min-width: 250px; /* Prevent container from becoming too narrow on small screens */
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    text-align: center;
+    overflow: hidden;
+    margin:0px 0 100px;; /* Remove the vertical margin */
+}
+
+#home-container {
+    width: 50%;
+    min-width: 300px; /* Slightly larger minimum width for home container */
+    padding: 30px;
+    background:  rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    text-align: center;
+    overflow: hidden;
+    margin: 0px 0 100px; /* Remove the vertical margin */
+}
+
+/* Header Styling */
+h1 {
+    font-size: 1.8rem; /* Adjusted font size */
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+/* Input Fields */
+input, textarea {
+    width: 100%;
+    padding: 10px 15px;
+    margin: 0px 0;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #555;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+input:focus, textarea:focus {
+    border-color: #ff7e5f;
+    outline: none;
+    box-shadow: 0 0 10px rgba(255, 126, 95, 0.5);
+}
+
+/* Buttons */
+button {
+    padding: 12px 20px;
+    background: #ff7e5f;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background-color: #feb47b;
+    transform: translateY(-3px);
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+/* Hyperlink */
+a {
+    color: #ff3300;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Forms Spacing */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* Post Container */
+#posts-container {
+    width: 100%;
+    margin-top: 30px;
+}
+
+.post {
+    background:  rgba(255, 255, 255, 0.8);;
+    margin: 20px 0;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.post:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.post-header {
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.post-content {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #555;
+}
+
+.like-comment {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+button.like-btn, button.comment-btn {
+    padding: 10px 15px;
+    border: none;
+    background: #ff7e5f;
+    color: white;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button.like-btn:hover, button.comment-btn:hover {
+    background: #feb47b;
+}
+
+textarea {
+    padding: 10px;
+    margin-top: 10px;
+    height: 50px;
+    border-radius: 8px;
+    resize: none;
+}
+
+/* Post Like and Comment Section */
+.comment {
+    background: #f7f7f7;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.comment strong {
+    color: #ff7e5f;
+}
+
+.comment p {
+    margin-top: 5px;
+    color: #555;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        padding: 10px;
+    }
+    
+    #login-container, #signup-container, #home-container {
+        margin: 10px 0;
+    }
+    
+    button {
+        padding: 10px;
+        font-size: 1rem;
+    }
+}
+
+.heart-button {
+    background: none !important;
+    border: none !important;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.heart-button:hover {
+    transform: scale(1.1);
+}
+
+.heart-button span {
+    margin-left: 4px;
+    font-size: 1rem;
+    color: #555;
+}
+
+/* 愛心跳動畫 */
+@keyframes heart-bounce {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.4); }
+    50% { transform: scale(0.9); }
+    100% { transform: scale(1); }
+}
+
+.animate-heart {
+    animation: heart-bounce 0.5s ease;
+}
+
+.bottom-bar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #f1f1f1;
+    text-align: center;
+    padding: 8px 0;
+    font-size: 14px;
+    color: #555;
+    border-top: 1px solid #ccc;
+    z-index: 1000;
+}
+
+.top-right-buttons {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column; /* 垂直排列 */
+    gap: 10px;               /* 按鈕之間的間距 */
+    z-index: 999;
+    align-items: flex-end;   /* 讓按鈕靠右對齊 */
+}
+
+.top-right-buttons a {
+    background-color: #ff7b5a;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: transform 0.1s ease-in-out;
+    width: 50px
+}
+
+.top-right-buttons a:hover {
+    transform: scale(1.05);
+}
+

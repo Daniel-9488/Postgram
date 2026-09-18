@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin - Users</title>
+    <link rel="stylesheet" href="/admin.css">
+</head>
+<footer class="bottom-bar">
+    Guan-Fu Chen All Rights Reserved © 2025 🄡
+</footer>
+<body>
+    <h2 class="admin-header">👥 Admin - User List</h2>
+    <div class="admin-links">
+        <a href="/admin/dashboard">← Back to Posts</a>
+        <a href="/logout">🚪 Logout</a>
+    </div>
+
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>UserID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Bio</th>
+                <th>Profile Picture</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% users.forEach(user => { %>
+                <tr>
+                    <td><%= user.UserID %></td>
+                    <td><%= user.Name %></td>
+                    <td><%= user.Email %></td>
+                    <td><%= user.PhoneNumber || '-' %></td>
+                    <td><%= user.Bio || '-' %></td>
+                    <td>
+                        <% if (user.ProfilePicture) { %>
+                            <img src="/<%= user.ProfilePicture %>" width="40">
+                        <% } else { %>
+                            N/A
+                        <% } %>
+                    </td>
+                    <td>
+                        <form action="/admin/deleteUser/<%= user.UserID %>" method="POST" onsubmit="return confirm('Are you sure you want to delete this user?');">
+                            <button type="submit">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+</html>

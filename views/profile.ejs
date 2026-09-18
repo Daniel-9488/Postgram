@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= user.username %>'s Profile</title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            font-family: sans-serif;
+        }
+
+        .profile-container {
+            max-width: 600px;
+            margin: 60px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        }
+
+        .profile-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-container img {
+            display: block;
+            margin: 0 auto 20px;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+
+        .form-group input[type="file"] {
+            padding: 5px;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #ff7b5a;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .submit-btn:hover {
+            background-color: #e76748;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            text-align: center;
+            width: 100%;
+            color: #333;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<footer class="bottom-bar">
+    Guan-Fu Chen All Rights Reserved © 2025 🄡
+</footer>
+
+<body>
+
+<div class="profile-container">
+    <h2>👤 Edit Profile</h2>
+    <img src="/<%= user.ProfilePicture || 'uploads/default-avatar.png' %>" alt="Profile Picture">
+
+    <form action="/profile/<%= user.UserID %>/edit" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="email" name="email" value="<%= user.Email %>" required>
+        </div>
+        <div class="form-group">
+            <label>Phone:</label>
+            <input type="text" name="phone" value="<%= user.PhoneNumber %>" required>
+        </div>
+        <div class="form-group">
+            <label>Bio:</label>
+            <textarea name="bio" rows="3"><%= user.Bio || '' %></textarea>
+        </div>
+        <div class="form-group">
+            <label>Change Profile Picture:</label>
+            <input type="file" name="profilePicture">
+        </div>
+        <button type="submit" class="submit-btn">💾 Save Changes</button>
+    </form>
+
+    <a href="/home" class="back-link">🏠 Back to Home</a>
+</div>
+
+</body>
+</html>

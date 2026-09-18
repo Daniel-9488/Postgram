@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Post</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<footer class="bottom-bar">
+    Guan-Fu Chen All Rights Reserved © 2025 🄡
+</footer>
+<body>
+    <div id="post-create-container">
+        <h2>Create a Post</h2>
+        <form action="/createPost" method="POST" enctype="multipart/form-data">
+            <textarea name="content" placeholder="What's on your mind?" required></textarea><br>
+            <input type="file" name="media"><br>
+            <button type="submit">Post</button>
+        </form>
+    </div>
+</body>
+</html>

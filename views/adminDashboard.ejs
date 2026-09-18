@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin - All Posts</title>
+    <link rel="stylesheet" href="/admin.css">
+    <script>
+        function toggleSection(id, type) {
+            const el = document.getElementById(`${type}-${id}`);
+            if (el) {
+                el.style.display = el.style.display === 'none' ? 'block' : 'none';
+            }
+        }
+    </script>
+</head>
+<footer class="bottom-bar">
+    Guan-Fu Chen All Rights Reserved © 2025 🄡
+</footer>
+<body>
+    <h2 class="admin-header">📌 Admin Dashboard - All Posts</h2>
+    <div class="admin-links">
+        <a href="/admin/users">🔍 View All Users</a>
+        <a href="/logout">🚪 Logout</a>
+    </div>
+
+    <% posts.forEach(post => { %>
+        <div class="admin-post-container">
+            <p><strong>Author:</strong> <%= post.Name %></p>
+            <p><%= post.Content %></p>
+
+            <!-- 按鈕群組 -->
+            <div class="toggle-group">
+                <% if (post.Media) { %>
+                    <button class="toggle-btn" onclick="toggleSection(<%= post.PostID %>, 'img')">🖼️ Toggle Post Image</button>
+                <% } %>
+
+                <button class="toggle-btn" onclick="toggleSection(<%= post.PostID %>, 'comments')">💬 Toggle Comments</button>
+                <button class="toggle-btn" onclick="toggleSection(<%= post.PostID %>, 'user-info')">👤 Toggle User Info</button>
+
+                <!-- 刪除按鈕 -->
+                <form action="/admin/deletePost" method="POST" onsubmit="return confirm('Are you sure you want to delete this post?')" style="display: inline;">
+                    <input type="hidden" name="postID" value="<%= post.PostID %>">
+                    <button type="submit" class="toggle-btn delete-btn">Delete Post</button>
+                </form>
+            </div>
+
+            <!-- 圖片 -->
+            <% if (post.Media) { %>
+                <div id="img-<%= post.PostID %>" class="image-section">
+                    <img src="/<%= post.Media %>" style="max-width: 100%;">
+                </div>
+            <% } %>
+
+            <div id="comments-<%= post.PostID %>" class="comment-section">
+                <% 
+                    const postComments = comments.filter(c => c.PostID === post.PostID); 
+                    if (postComments.length === 0) { 
+                %>
+                    <em>No comments</em>
+                <% } else { %>
+                    <% postComments.forEach(c => { %>
+                        <div class="comment-block">
+                            <strong><%= c.Name %>:</strong> <%= c.Content %>
+                            <form action="/admin/deleteComment" method="POST" class="inline-form" onsubmit="return confirm('Delete this comment?')">
+                                <input type="hidden" name="commentID" value="<%= c.CommentID %>">
+                                <button type="submit" class="mini-delete-btn"><strong>Delete</strong></button>
+                            </form>
+                            <br><small><%= c.formattedTime %></small>
+                        </div>
+                    <% }) %>
+                <% } %>
+            </div>
+
+            <!-- 使用者資訊 -->
+            <div id="user-info-<%= post.PostID %>" class="user-info">
+                <% if (post.ProfilePicture) { %>
+                    <img src="/<%= post.ProfilePicture %>"><br>
+                <% } else { %>
+                    <em>No profile picture</em><br>
+                <% } %>
+                <strong>Name:</strong> <%= post.Name %><br>
+                <strong>UserID:</strong> <%= post.UserID %><br>
+                <strong>Email:</strong> <%= post.Email || 'N/A' %><br>
+                <strong>Phone:</strong> <%= post.PhoneNumber || 'N/A' %><br> <!-- ✅ 加上電話 -->
+            </div>
+        </div>
+    <% }) %>
+</body>
+</html>

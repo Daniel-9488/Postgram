@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Postgram - Register</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<footer class="bottom-bar">
+    Guan-Fu Chen All Rights Reserved © 2025 🄡
+</footer>
+
+<body>
+    <div class="logo-container">
+        <img src="/images/PostgramLogo.png" alt="Postgram Logo" style="width: 250px; height: auto; margin: 20px auto 0; display: block;">
+    </div>
+    <div id="signup-container">
+        <h2>Register</h2>
+
+        <% if (error) { %>
+            <p style="color: red;"><%= error %></p>
+        <% } %>
+
+        <form action="/register" method="POST" enctype="multipart/form-data">
+            <input type="text" name="name" placeholder="Name" required><br>
+            <input type="text" name="phoneNumber" placeholder="Phone Number"><br>
+            <input type="email" name="email" placeholder="Email" required><br>
+            <input type="password" name="password" placeholder="Password" required><br>
+            <textarea name="bio" placeholder="Your Bio"></textarea><br>
+            <input type="file" name="profilePicture" accept="image/*"><br> <!-- 新增這行 -->
+            <button type="submit">Register</button>
+        </form>
+        <p>Already have an account?</p>
+        <a href="/login">Login here</a>
+    </div>
+</body>
+</html>

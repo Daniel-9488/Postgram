@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Postgram - Home</title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        .post {
+            background-color: white;
+            padding: 20px;
+            margin: 20px auto;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            max-width: 600px;
+            text-align: left;
+        }
+        .post-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        .timestamp {
+            font-size: 0.75em;
+            color: #888;
+            text-align: right;
+            margin: 5px 0 10px;
+        }
+        .comment {
+            margin-top: 10px;
+            padding-left: 20px;
+            font-size: 0.9em;
+        }
+        .comment .timestamp {
+            font-size: 0.75em;
+            color: #999;
+            margin-left: 5px;
+        }
+        .comment-form {
+            position: relative;
+            margin-top: 10px;
+            width: 100%;
+        }
+        .comment-input {
+            width: 64%;
+            resize: none;
+            font-size: 0.9em;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+        .comment-button {
+            position: absolute;
+            right: 0;
+            top: 0;
+            padding: 10px 15px;
+            font-size: 0.9em;
+            white-space: nowrap;
+            border: none;
+            background-color: #ff7b5a;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            height: 50px;
+            box-sizing: border-box;
+        }
+        .heart-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            padding: 0;
+            margin-left: 10px;
+        }
+        .like-wrapper {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+            gap: 4px;
+        }
+        #home-container {
+            text-align: center;
+            padding-top: 40px;
+        }
+        img.post-image {
+            display: block;
+            margin: 12px auto 0;    /* 上12px，中置 */
+            border-radius: 12px;    /* 圓角更柔和一點 */
+            max-width: 100%;        /* 最寬不要超過白色盒子 */
+            height: auto;           /* 保持原本比例 */
+            object-fit: cover;      /* 補齊空間（可選，可留可拿掉） */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05); /* 小小陰影，立體感 */
+        }
+        
+        a {
+            display: inline-block;
+            margin: 10px;
+        }
+    </style>
+</head>
+<footer class="bottom-bar">
+    Guan-Fu Chen All Rights Reserved © 2025 🄡
+</footer>
+<body>
+
+    <div class="logo-container">
+        <img src="/images/PostgramLogo.png" alt="Postgram Logo" style="width: 250px; height: auto; margin: 20px auto 0; display: block;">
+    </div>
+
+<div id="home-container">
+
+    <h2>&#9925 Welcome to POSTGRAM</h2>
+
+    <div id="post-feed">
+        <% posts.forEach(post => { %>
+            <div class="post">
+                <div class="post-header">
+                    <img src="/<%= post.ProfilePicture ? post.ProfilePicture : 'uploads/default-avatar.png' %>" alt="Avatar" class="avatar">
+                    <a href="/user/<%= post.UserID %>"><strong><%= post.Name %></strong></a>
+                </div>                          
+
+                <% if (post.Media) { %>
+                    <img src="/<%= post.Media %>" alt="Post Media" class="post-image">
+                <% } %>
+
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 10px;">
+                    <div style="flex-grow: 1;">
+                        <p style="margin: 0;"><%= post.Content %></p>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 4px;">
+                        <button type="button" class="heart-button"
+                            onmousedown="startLongPress('<%= post.PostID %>')"
+                            onmouseup="stopLongPress()"
+                            onmouseleave="stopLongPress()"
+                            onclick="singleLike('<%= post.PostID %>')">
+                            🧡
+                        </button>
+                        <span id="like-count-<%= post.PostID %>"><%= post.LikeCount %></span>
+                    </div>
+                </div>
+                
+
+                <div class="timestamp">🕒 <%= post.formattedTime %></div>
+
+                <% comments.filter(comment => comment.PostID === post.PostID).forEach(comment => { %>
+                    <div class="comment">
+                        💬 <%= comment.Content %> - <strong><%= comment.Name %></strong>
+                        <span class="timestamp"><%= comment.formattedTime %></span>
+                    </div>
+                <% }) %>
+
+                <form action="/addComment" method="POST" class="comment-form">
+                    <input type="hidden" name="postID" value="<%= post.PostID %>">
+                    <input type="text" name="content" placeholder="Write a comment..." class="comment-input" required>
+                    <button type="submit" class="comment-button">💬 Comment</button>
+                </form>
+            </div>
+        <% }) %>
+    </div>
+
+    <div class="top-right-buttons">
+        <a href="/profile/<%= user.UserID %>">👤 Profile</a>
+        <a href="/postCreate">➕ Create Post</a>
+        <a href="/logout">🚪 Logout</a>
+    </div>
+
+    
+</div>
+
+<script>
+    let pressTimer;
+    let postIDNow;
+
+    function startLongPress(postID) {
+        postIDNow = postID;
+        pressTimer = setInterval(() => {
+            sendLike(postIDNow);
+        }, 1000);
+    }
+
+    function stopLongPress() {
+        clearInterval(pressTimer);
+    }
+
+    function singleLike(postID) {
+        sendLike(postID);
+    }
+
+    function sendLike(postID) {
+        fetch('/likePost', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ postID })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const likeCountSpan = document.getElementById(`like-count-${postID}`);
+                likeCountSpan.textContent = data.likeCount;
+                likeCountSpan.style.transform = 'scale(1.4)';
+                setTimeout(() => {
+                    likeCountSpan.style.transform = 'scale(1)';
+                }, 200);
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
